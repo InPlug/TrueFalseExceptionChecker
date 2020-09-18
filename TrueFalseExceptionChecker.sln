@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueFalseExceptionChecker", "TrueFalseExceptionChecker\TrueFalseExceptionChecker.csproj", "{1DADB143-9DE8-4C94-B766-E9CF80733DFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueFalseExceptionCheckerDemo", "TrueFalseExceptionCheckerDemo\TrueFalseExceptionCheckerDemo.csproj", "{8D520506-69E3-4B74-926C-7F6507DB15BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DADB143-9DE8-4C94-B766-E9CF80733DFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DADB143-9DE8-4C94-B766-E9CF80733DFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DADB143-9DE8-4C94-B766-E9CF80733DFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DADB143-9DE8-4C94-B766-E9CF80733DFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D520506-69E3-4B74-926C-7F6507DB15BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D520506-69E3-4B74-926C-7F6507DB15BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D520506-69E3-4B74-926C-7F6507DB15BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D520506-69E3-4B74-926C-7F6507DB15BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
