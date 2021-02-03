@@ -219,6 +219,7 @@ namespace Vishnu.Demos
         EXCEPTION
     }
 
+    [Serializable()]
     class DefaultReturnObject
     {
         public string DefaultResultProperty { get; private set; }
