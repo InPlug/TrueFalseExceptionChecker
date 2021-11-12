@@ -54,8 +54,11 @@ namespace Vishnu.Demos
             string pString = (checkerParameters ?? "").ToString().Trim();
             string[] paraStrings = pString.Split('|');
             string[] stateStrings = paraStrings[0].Trim().Split(':');
-            List<State> stateList = new List<State>(stateStrings.Select(i => { State x; if (Enum.TryParse(i.Trim().ToUpper(),
-                                    out x)) return x; return State.INVALID; }).ToList());
+            List<State> stateList = new List<State>(stateStrings.Select(i =>
+            {
+                State x; if (Enum.TryParse(i.Trim().ToUpper(),
+out x)) return x; return State.INVALID;
+            }).ToList());
             stateList.RemoveAll(state => state == State.INVALID);
             if (stateList.Count < 1)
             {
@@ -117,40 +120,23 @@ namespace Vishnu.Demos
                 case State.TRUE: dummyReturn = true; break;
                 default: dummyReturn = false; break;
             }
-            try
+            InfoController.Say("#TrueFalseExceptionCecker#: running   0%");
+            this.OnNodeProgressChanged(this.GetType().Name, 100, 0, ItemsTypes.items);
+            Thread.Sleep(this._waitTimeMilliseconds);
+            InfoController.Say("#TrueFalseExceptionCecker#: running  25%");
+            this.OnNodeProgressChanged(this.GetType().Name, 100, 25, ItemsTypes.items);
+            Thread.Sleep(this._waitTimeMilliseconds);
+            InfoController.Say("#TrueFalseExceptionCecker#: running  50%");
+            this.OnNodeProgressChanged(this.GetType().Name, 100, 50, ItemsTypes.items);
+            Thread.Sleep(this._waitTimeMilliseconds);
+            InfoController.Say("#TrueFalseExceptionCecker#: running  75%");
+            this.OnNodeProgressChanged(this.GetType().Name, 100, 75, ItemsTypes.items);
+            Thread.Sleep(this._waitTimeMilliseconds);
+            this.OnNodeProgressChanged(Assembly.GetExecutingAssembly().GetName().Name, 100, 100, ItemsTypes.items);
+            if (this._nextDummyReturn == State.EXCEPTION)
             {
-                InfoController.Say("#TrueFalseExceptionCecker#: running   0%");
-                this.OnNodeProgressChanged(this.GetType().Name, 100, 0, ItemsTypes.items);
-                Thread.Sleep(this._waitTimeMilliseconds);
-                InfoController.Say("#TrueFalseExceptionCecker#: running  25%");
-                this.OnNodeProgressChanged(this.GetType().Name, 100, 25, ItemsTypes.items);
-                Thread.Sleep(this._waitTimeMilliseconds);
-                InfoController.Say("#TrueFalseExceptionCecker#: running  50%");
-                this.OnNodeProgressChanged(this.GetType().Name, 100, 50, ItemsTypes.items);
-                Thread.Sleep(this._waitTimeMilliseconds);
-                InfoController.Say("#TrueFalseExceptionCecker#: running  75%");
-                this.OnNodeProgressChanged(this.GetType().Name, 100, 75, ItemsTypes.items);
-                Thread.Sleep(this._waitTimeMilliseconds);
-                this.OnNodeProgressChanged(Assembly.GetExecutingAssembly().GetName().Name, 100, 100, ItemsTypes.items);
-                if (this._nextDummyReturn == State.EXCEPTION)
-                {
-                    throw (this.ReturnObject as ApplicationException);
-                }
+                throw (this.ReturnObject as ApplicationException);
             }
-            catch (Exception ex)
-            {
-                InfoController.Say("#TrueFalseExceptionCecker#: Exception: " + ex.Message);
-                for (int i = 0; i < 10; i++)
-                {
-                    Thread.Sleep(500);
-                    InfoController.Say(String.Format($"#TrueFalseExceptionCecker#: hanging {(i + 1) * 10}%"));
-                }
-                throw;
-            }
-            //if (this.ReturnObject != null)
-            //{
-            //  this.ReturnObject = dummyReturn;
-            //}
             InfoController.Say("#TrueFalseExceptionCecker#: done    100%");
             return dummyReturn;
         }
