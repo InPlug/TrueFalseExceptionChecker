@@ -56,8 +56,7 @@ namespace Vishnu.Demos
             string[] stateStrings = paraStrings[0].Trim().Split(':');
             List<State> stateList = new List<State>(stateStrings.Select(i =>
             {
-                State x; if (Enum.TryParse(i.Trim().ToUpper(),
-out x)) return x; return State.INVALID;
+                State x; if (Enum.TryParse(i.Trim().ToUpper(), out x)) return x; return State.INVALID;
             }).ToList());
             stateList.RemoveAll(state => state == State.INVALID);
             if (stateList.Count < 1)
