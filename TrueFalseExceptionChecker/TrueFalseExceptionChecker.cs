@@ -7,6 +7,7 @@ using NetEti.Globals;
 using System.Reflection;
 using Vishnu.Interchange;
 using NetEti.ApplicationControl;
+using System.ComponentModel;
 
 namespace Vishnu.Demos
 {
@@ -22,12 +23,12 @@ namespace Vishnu.Demos
         /// des Checkers geändert hat, muss aber zumindest aber einmal zum
         /// Schluss der Verarbeitung aufgerufen werden.
         /// </summary>
-        public event CommonProgressChangedEventHandler NodeProgressChanged;
+        public event ProgressChangedEventHandler? NodeProgressChanged;
 
         /// <summary>
         /// Rückgabe-Objekt des Checkers
         /// </summary>
-        public object ReturnObject
+        public object? ReturnObject
         {
             get
             {
@@ -49,9 +50,11 @@ namespace Vishnu.Demos
         /// <param name="treeParameters">Für den gesamten Tree gültige Parameter oder null.</param>
         /// <param name="source">Auslösendes TreeEvent oder null.</param>
         /// <returns>True, False oder null</returns>
-        public bool? Run(object checkerParameters, TreeParameters treeParameters, TreeEvent source)
+        public bool? Run(object? checkerParameters, TreeParameters treeParameters, TreeEvent source)
         {
-            string pString = (checkerParameters ?? "").ToString().Trim();
+            string pString = checkerParameters?.ToString()?.Trim()
+                ?? throw new ArgumentException(
+                    "Es muss mindestens ein State ('Null','True','False','Exception') oder eine durch ':' getrennte Kombination von States angegeben werden!");
             string[] paraStrings = pString.Split('|');
             string[] stateStrings = paraStrings[0].Trim().Split(':');
             List<State> stateList = new List<State>(stateStrings.Select(i =>
@@ -120,21 +123,21 @@ namespace Vishnu.Demos
                 default: dummyReturn = false; break;
             }
             InfoController.Say("#TrueFalseExceptionCecker#: running   0%");
-            this.OnNodeProgressChanged(this.GetType().Name, 100, 0, ItemsTypes.items);
+            this.OnNodeProgressChanged(0);
             Thread.Sleep(this._waitTimeMilliseconds);
             InfoController.Say("#TrueFalseExceptionCecker#: running  25%");
-            this.OnNodeProgressChanged(this.GetType().Name, 100, 25, ItemsTypes.items);
+            this.OnNodeProgressChanged(25);
             Thread.Sleep(this._waitTimeMilliseconds);
             InfoController.Say("#TrueFalseExceptionCecker#: running  50%");
-            this.OnNodeProgressChanged(this.GetType().Name, 100, 50, ItemsTypes.items);
+            this.OnNodeProgressChanged(50);
             Thread.Sleep(this._waitTimeMilliseconds);
             InfoController.Say("#TrueFalseExceptionCecker#: running  75%");
-            this.OnNodeProgressChanged(this.GetType().Name, 100, 75, ItemsTypes.items);
+            this.OnNodeProgressChanged(75);
             Thread.Sleep(this._waitTimeMilliseconds);
-            this.OnNodeProgressChanged(Assembly.GetExecutingAssembly().GetName().Name, 100, 100, ItemsTypes.items);
-            if (this._nextDummyReturn == State.EXCEPTION)
+            this.OnNodeProgressChanged(100);
+            if (this._nextDummyReturn == State.EXCEPTION && this.ReturnObject != null)
             {
-                throw (this.ReturnObject as ApplicationException);
+                throw ((ApplicationException)this.ReturnObject);
             }
             InfoController.Say("#TrueFalseExceptionCecker#: done    100%");
             return dummyReturn;
@@ -172,17 +175,17 @@ namespace Vishnu.Demos
 
         private State _nextDummyReturn;
         private int _nextIndex;
-        private object _returnObject;
-        private object _userReturnObject;
+        private object? _returnObject;
+        private object? _userReturnObject;
         private int _lastSecond;
         private int _logicalChangeSeconds;
         private int _waitTimeMilliseconds;
 
-        private void OnNodeProgressChanged(string itemsName, int countAll, int countSucceeded, ItemsTypes itemsType)
+        private void OnNodeProgressChanged(int progressPercentage)
         {
             if (NodeProgressChanged != null)
             {
-                NodeProgressChanged(null, new CommonProgressChangedEventArgs(itemsName, countAll, countSucceeded, itemsType, null));
+                NodeProgressChanged(null, new ProgressChangedEventArgs(progressPercentage, null));
             }
         }
     }

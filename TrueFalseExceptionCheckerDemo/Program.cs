@@ -1,11 +1,10 @@
-﻿using System;
-using System.Threading;
-using NetEti.Globals;
+﻿using System.ComponentModel;
+using Vishnu.Demos;
 using Vishnu.Interchange;
 
-namespace Vishnu.Demos
+namespace TrueFalseExceptionCheckerDemo
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
@@ -19,10 +18,10 @@ namespace Vishnu.Demos
                 {
                     try
                     {
-                        //bool? logical = trueFalseExceptionChecker.Run("True:Null|5|Checker_12-Result", "Tree1", null);
-                        //bool? logical = trueFalseExceptionChecker.Run("Exception:True:Null|5|Checker_12-Result", "Tree1", null);
-                        //bool? logical = trueFalseExceptionChecker.Run("Exception:Null:False:True|7|Checker_12-Result", new TreeParameters("MainTree", null), null);
-                        bool? logical = trueFalseExceptionChecker.Run("Exception:Null:False:True|0|Result|1000", new TreeParameters("MainTree", null), null);
+                        //bool? logical = trueFalseExceptionChecker.Run("True:Null|5|Checker_12-Result", "Tree1", TreeEvent.UndefinedTreeEvent);
+                        //bool? logical = trueFalseExceptionChecker.Run("Exception:True:Null|5|Checker_12-Result", "Tree1", TreeEvent.UndefinedTreeEvent);
+                        //bool? logical = trueFalseExceptionChecker.Run("Exception:Null:False:True|7|Checker_12-Result", new TreeParameters("MainTree", null), TreeEvent.UndefinedTreeEvent);
+                        bool? logical = trueFalseExceptionChecker.Run("Exception:Null:False:True|0|Result|1000", new TreeParameters("MainTree", null), TreeEvent.UndefinedTreeEvent);
                         Console.WriteLine("Checker: {0}, {1}", logical == null ? "null" : logical.ToString(),
                           trueFalseExceptionChecker.ReturnObject == null ? "null" : trueFalseExceptionChecker.ReturnObject.ToString());
                     }
@@ -45,9 +44,9 @@ namespace Vishnu.Demos
         /// </summary>
         /// <param name="sender">Der Checker.</param>
         /// <param name="args">Argumente mit Progress-Fortschritt.</param>
-        static void CheckerProgressChanged(object sender, CommonProgressChangedEventArgs args)
+        static void CheckerProgressChanged(object? sender, ProgressChangedEventArgs args)
         {
-            Console.WriteLine(String.Format("{0} von {1} = {2} %", args.CountSucceeded, args.CountAll, args.ProgressPercentage));
+            Console.WriteLine(args.ProgressPercentage);
             checkBreak();
         }
 
