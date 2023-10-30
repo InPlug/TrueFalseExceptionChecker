@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using NetEti.Globals;
-using System.Reflection;
 using Vishnu.Interchange;
 using NetEti.ApplicationControl;
 using System.ComponentModel;
@@ -19,7 +16,7 @@ namespace Vishnu.Demos
         #region INodeChecker implementation
 
         /// <summary>
-        /// Kann aufgerufen werden, wenn sich der Verarbeitungs-Fortschritt
+        /// Kann aufgerufen werden, wenn sich der Verarbeitungsfortschritt
         /// des Checkers geändert hat, muss aber zumindest aber einmal zum
         /// Schluss der Verarbeitung aufgerufen werden.
         /// </summary>
@@ -147,7 +144,7 @@ namespace Vishnu.Demos
         /// Schaltet ringförmig durch die verschiedenen Zustände von legalStateSequence.
         /// </summary>
         /// <param name="lastIndex">Der letzte Index in legalStateSequence.</param>
-        /// <param name="legalStateSequence">Array von zugelassenen States in Verarbeitungs-Reihenfolge.</param>
+        /// <param name="legalStateSequence">Array von zugelassenen States in Verarbeitungsreihenfolge.</param>
         private State getNextDummyReturn(ref int lastIndex, State[] legalStateSequence)
         {
             int nextIndex = 0;
